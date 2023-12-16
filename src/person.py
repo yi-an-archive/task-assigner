@@ -35,45 +35,38 @@ class Person:
 		'''
 		self.name = name
 
-	def getTask(self, week = None): 
+	def getAllAssignedTasks(self): 
 		'''
-		Get all tasks or the task for a specific week.
-
-        Parameters:
-        - week (int, optional): The week number, starting from 1. 
-								If None, returns all tasks. 
+		Get all tasks assigned to the person.
 	
 		Returns: 
-		- (list): A list of all tasks, if week is not provided. 
-		- (str): The task for the specified week, if week is provided. 
+		- (list): The list of all assigned tasks. 
 		'''
-		pass
-	
-	def setTask(self, week, task): 
-		'''
-		Set a task for a specific week. If the assigned task is not in the list of 
-		eligible tasks, it returns an error message. 
+		if len(self.assignedTasks) == 0: 
+			return None
+		else: 
+			return self.assignedTasks
 
-        Parameters:
-        - week (int): The week number, starting from 1. 
-        - task (str): The name of the task.
-		'''
-		pass
-	
 	def getEligibleTasksList(self): 
 		'''
-		Get the list of eligible tasks. 
+		Get the eligible tasks. 
 		
 		Returns: 
 		- (list): A list of the person's eligible tasks. 
 		'''
-		return self.eligibleTasks
+		if len(self.eligibleTasks) == 0: 
+			return None
+		else:
+			return self.eligibleTasks
 	
-	def setEligibleTasksList(self): 
+	def setEligibleTasksList(self, eligibleTasks): 
 		'''
+		Set the eligible tasks. 
 		
+		Parameters: 
+		- eligibleTasks (list): A list of the person's eligible tasks. 
 		'''
-		pass
+		self.eligibleTasks = eligibleTasks
 	
 	def __isEligible(self, task): 
 		'''
@@ -83,3 +76,26 @@ class Person:
 		- (bool): Whether this task is eligible for assignment. 
 		'''
 		return (task in self.eligibleTasks) 
+	
+	def getTaskForTheWeek(self, week): 
+		'''
+		Get the task for the specified week.
+
+        Parameters:
+        - week (int): The week number, the minimum being 1. 
+	
+		Returns: 
+		- (str): The task for the specified week. 
+		'''
+		pass
+	
+	def setTaskForTheWeek(self, week, task): 
+		'''
+		Set a task for the specified week. If the assigned task is not in the list of 
+		eligible tasks, it returns an error message. 
+
+        Parameters:
+        - week (int): The week number, the minimum being 1. 
+        - task (str): The name of the task.
+		'''
+		pass
