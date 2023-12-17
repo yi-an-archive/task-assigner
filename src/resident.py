@@ -11,7 +11,7 @@ from person import Person
 class Resident(Person): 
 	def __init__(self, name, room):
 		super().__init__(name)
-		self.room = room # room number
+		self.room = room # room number, an integer
 
 	def __str__(self):
 		return f"Room {self.room}: {self.name}"

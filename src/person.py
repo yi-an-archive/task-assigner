@@ -11,7 +11,7 @@ class Person:
 		self.name = name
 		# Initialise a list of all tasks assigned to the person
 		self.assignedTasks = [] 
-		# Initialise a list of tasks this person can do
+		# Initialise a list of tasks this person may do
 		self.eligibleTasks = []
 
 	def __str__(self):
@@ -68,15 +68,6 @@ class Person:
 		'''
 		self.eligibleTasks = eligibleTasks
 	
-	def __isEligible(self, task): 
-		'''
-		Check if the task is eligible for the person. 
-		
-		Returns: 
-		- (bool): Whether this task is eligible for assignment. 
-		'''
-		return (task in self.eligibleTasks) 
-	
 	def getTaskForTheWeek(self, week): 
 		'''
 		Get the task for the specified week.
@@ -87,15 +78,50 @@ class Person:
 		Returns: 
 		- (str): The task for the specified week. 
 		'''
-		pass
-	
+		if self.__isWeekNumValid(week): 
+			return self.assignedTasks[week - 1]
+		elif len(self.assignedTasks) == 0: 
+			raise Exception("There are not assigned tasks yet.")
+		else: 
+			raise ValueError("The week number is out of list range.")	
+			
 	def setTaskForTheWeek(self, week, task): 
 		'''
-		Set a task for the specified week. If the assigned task is not in the list of 
-		eligible tasks, it returns an error message. 
+		Set a task for the specified week. 
 
         Parameters:
         - week (int): The week number, the minimum being 1. 
         - task (str): The name of the task.
 		'''
-		pass
+		if self.__isWeekNumValid(week): 
+			# Check if the assigned task is eligible for the person
+			if task == "-" or self.__isTaskEligible(task): 
+				self.assignedTasks[week - 1] = task
+			else: 
+				raise Exception("This task is not eligible.")
+		else: 
+			raise ValueError("The week number is out of list range.")
+		
+	def __isTaskEligible(self, task): 
+		'''
+		Check if the task is eligible for the person. 
+		
+		Parameters: 
+		- task (str): A task name. 
+		
+		Returns: 
+		- (bool): Whether this task is eligible for assignment. 
+		'''
+		return (task in self.eligibleTasks) 
+	
+	def __isWeekNumValid(self, week): 
+		'''
+		Check if the week number is within the range. 
+		
+		Parameters: 
+		- week (int): A week number. 
+		
+		Returns: 
+		- (bool): Whether the week number is valid. 
+		'''
+		return (1 <= week <= len(self.assignedTasks))
