@@ -6,18 +6,38 @@
 ==========================================================
 """
 
-from person import Person
-from resident import Resident
+import copy
+import random
 
 def main(): 
-    p1 = Person("X") 
-    print(p1)
-    print(p1.getName())
-    p1.setName("Y")
-    print(p1.getName())
     
-    r1 = Resident("Z", 20)
-    print(r1)
+    residents = ['14', '15', '16', '17', '18', '19', '20', '21', \
+                 '22', '23', '24', '25', '26', '27', '28', '29']
+    
+    tasks = ['Kitchen', 'Toilet&Shower', 'Corridor', 'Trash']
+    
+    num_week = 8    # create schedule for the next 8 weeks
+
+    eligibleTasks = {} # tasks that can be assigned to each person
+    
+    for resident in residents: 
+        # Initialisation: Everyone gets all tasks
+        eligibleTasks[resident] = copy.deepcopy(tasks)
+        
+        # Exception cases: 
+        ##   No need to do any task
+        if resident in ['14']: 
+            eligibleTasks[resident] = []
+        ##   Kitchen only
+        elif resident in ['15', '28', '29']: 
+            eligibleTasks[resident] = ['Kitchen']
+        ##   No trash
+        elif resident in ['16']: 
+            eligibleTasks[resident].remove('Trash')
+        ##   No kitchen
+        elif resident in ['20', '21']: 
+            eligibleTasks[resident].remove('Kitchen')
+
 
 if __name__ == "__main__": 
     main()
